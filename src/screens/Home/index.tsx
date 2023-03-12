@@ -7,6 +7,7 @@ import { Routes } from '@utils/enums';
 import { formatDateToBR, getProductsFromAsyncStorage, saveProductToAsyncStorage } from '@utils/helpers';
 
 import If from '@components/If';
+import { ScrollView } from 'react-native';
 
 const Home = () => {
     const navigation = useNavigation();
@@ -175,23 +176,25 @@ const Home = () => {
 
     return (
         <S.Container>
-            <If condition={!isEmpty(products)}>
-                <FilterHeader />
-                <Chart />
-            </If>
+            <ScrollView>
+                <If condition={!isEmpty(products)}>
+                    <FilterHeader />
+                    <Chart />
+                </If>
 
-            <If condition={isEmpty(products)}>
-                <S.NoProducts>No product has been registered</S.NoProducts>
-            </If>
+                <If condition={isEmpty(products)}>
+                    <S.NoProducts>No product has been registered</S.NoProducts>
+                </If>
 
-            <If condition={!isEmpty(products)}>
-                <FlatList
-                    data={products}
-                    keyExtractor={(item: Product) => String(item.code)}
-                    renderItem={renderItem}
-                    style={{ marginTop: 10 }}
-                />
-            </If>
+                <If condition={!isEmpty(products)}>
+                    <FlatList
+                        data={products}
+                        keyExtractor={(item: Product) => String(item.code)}
+                        renderItem={renderItem}
+                        style={{ marginTop: 10 }}
+                    />
+                </If>
+            </ScrollView>
         </S.Container>
     )
 }
